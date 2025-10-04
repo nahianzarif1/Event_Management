@@ -1,3 +1,43 @@
+<?php
+$host = "localhost";
+$dbUsername = "root";
+$dbPassword = "";
+$dbName = "isd";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = $_POST["name"];
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $password = $_POST["password"];
+    $securityque = $_POST["securityque"];
+    $securityans = $_POST["securityans"];
+
+    $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+
+    if ($conn->connect_error) {
+        die("Database Connection Failed: " . $conn->connect_error);
+    }
+
+    do {
+        $userID = rand(1000, 9999999);
+
+        $result = $conn->query("SELECT userID FROM user WHERE userID = $userID");
+    } while ($result && $result->num_rows > 0);
+
+    $sql = "INSERT INTO user (userID, name, username, email, phone, password, securityque, securityans) 
+            VALUES ($userID, '$name', '$username', '$email', '$phone', '$password', '$securityque', '$securityans')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<p style='color:green; text-align:center;'>Registration successful! Your user ID: $userID</p>";
+    } else {
+        echo "<p style='color:red; text-align:center;'>Error: " . $conn->error . "</p>";
+    }
+
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
