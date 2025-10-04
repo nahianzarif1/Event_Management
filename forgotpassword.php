@@ -1,3 +1,77 @@
+<?php
+$host = "localhost";
+$dbUsername = "root";
+$dbPassword = "";
+$dbName = "isd";
+
+$step = 1;
+$securityQuestion = "";
+$username = "";
+$showChangeForm = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    if (isset($_POST["check_username"])) {
+        $username = $_POST["username"];
+        $stmt = $conn->prepare("SELECT securityque FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($row = $result->fetch_assoc()) {
+            $securityQuestion = $row["securityque"];
+            $step = 2;
+        } else {
+            $error = "Username not found.";
+        }
+
+        $stmt->close();
+    }
+
+    if (isset($_POST["check_answer"])) {
+        $username = $_POST["username"];
+        $answer = $_POST["securityans"];
+
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ? AND securityans = ?");
+        $stmt->bind_param("ss", $username, $answer);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            $showChangeForm = true;
+        } else {
+            $error = "Incorrect answer.";
+            $step = 2;
+        }
+
+        $stmt->close();
+    }
+
+    if (isset($_POST["change_password"])) {
+        $username = $_POST["username"];
+        $newPassword = $_POST["newpassword"];
+
+        $stmt = $conn->prepare("UPDATE user SET password = ? WHERE username = ?");
+        $stmt->bind_param("ss", $newPassword, $username);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $success = "Password changed successfully!";
+        } else {
+            $error = "Failed to update password.";
+        }
+
+        $stmt->close();
+    }
+
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
