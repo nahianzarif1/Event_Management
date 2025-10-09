@@ -1,0 +1,69 @@
+/* Minimalist Modern Tables */
+.profile-container table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* spacing between rows for airy feel */
+  color: #4a2c1a;
+  box-shadow: none; /* remove heavy shadow */
+  border-radius: 12px;
+  overflow: visible; /* allow shadows on cells */
+  background: transparent;
+}
+
+.profile-container th,
+.profile-container td {
+  padding: 14px 20px;
+  text-align: left;
+  background: #fff;
+  border: none; /* remove borders */
+  box-shadow: 0 2px 5px rgba(215, 90, 74, 0.08); /* subtle shadow for cards effect */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 8px;
+}
+
+.profile-container th {
+  font-weight: 600;
+  color: #d75a4a;
+  background: transparent;
+  box-shadow: none;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profile-container tbody tr {
+  /* Remove traditional table row style */
+  background: transparent;
+  box-shadow: none;
+}
+
+.profile-container tbody tr:hover td {
+  background-color: #d75a4a;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(215, 90, 74, 0.3);
+}
+
+.profile-container tr:nth-child(even) td {
+  background-color: #fff;
+}
+
+.profile-container tr:nth-child(odd) td {
+  background-color: #fff;
+}
+
+/* Remove alternate row colors to keep clean, rely on spacing */
+
+/* Remove bottom border of last row */
+.profile-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive font size */
+@media screen and (max-width: 768px) {
+  .profile-container th,
+  .profile-container td {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+}
