@@ -1,0 +1,94 @@
+/* General Reset */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f); /* warm, bright gradient */
+  color: #333; /* dark text for light mode */
+}
+
+/* Navigation Bar */
+.navbar {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Nav links */
+.navbar a {
+  color: #d75a4a; /* warm red/orange */
+  text-decoration: none;
+  padding: 16px 20px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.navbar a:hover {
+  background: rgba(215, 90, 74, 0.15);
+  color: #b34133;
+}
+
+/* Username Section */
+.username {
+  color: #6b3e2a; /* warm brown */
+  padding: 16px 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-link {
+  color: #d75a4a;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout-link:hover {
+  color: #b34133;
+}
+
+/* Page Content */
+.content {
+  padding: 30px;
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.welcome {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #6b3e2a;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    padding: 10px 20px;
+    border-radius: 12px;
+  }
+
+  .navbar a,
+  .username {
+    width: 100%;
+    padding: 12px 0;
+    text-align: center;
+    float: none;
+  }
+
+  .username {
+    justify-content: center;
+  }
+}
