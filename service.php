@@ -1,3 +1,47 @@
+<?php
+include 'dashboard.php';
+
+if (!isset($_SESSION["username"])) {
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION["username"];
+
+// Database connection
+$host = 'localhost';
+$db = 'isd';
+$user = 'root';
+$pass = '';
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Search & Pagination
+$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$itemsPerPage = 5;
+$offset = ($page - 1) * $itemsPerPage;
+
+$whereClause = "";
+if (!empty($search)) {
+    $whereClause = "WHERE name LIKE '%$search%' OR category LIKE '%$search%'";
+}
+
+$sqlCount = "SELECT COUNT(*) AS total FROM service $whereClause";
+$resultCount = $conn->query($sqlCount);
+$totalItems = $resultCount->fetch_assoc()['total'];
+$totalPages = ceil($totalItems / $itemsPerPage);
+
+$sql = "SELECT * FROM service $whereClause LIMIT $itemsPerPage OFFSET $offset";
+$result = $conn->query($sql);
+?>
+
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="services.css">
+
 <div class="services-container">
 
     <form method="get" action="services.php" class="search-form">
@@ -85,3 +129,72 @@
         </form>
     </div>
 </div>
+
+<script>
+// Popup logic including guest & budget in quotation
+
+function openBookingPopup(cardElem) {
+    const modal = document.getElementById("bookingModal");
+    const serviceID = cardElem.getAttribute("data-service-id");
+    const serviceName = cardElem.getAttribute("data-service-name");
+    const basePrice = parseFloat(cardElem.getAttribute("data-base-price"));
+    const baseDuration = parseInt(cardElem.getAttribute("data-base-duration"));
+
+    document.getElementById("modalServiceName").innerText = "Book: " + serviceName;
+    document.getElementById("modalServiceID").value = serviceID;
+
+    document.getElementById("inputDuration").value = baseDuration;
+    document.getElementById("inputGuests").value = 1;
+    document.getElementById("budgetSelect").value = "simple";
+    document.getElementById("inputDate").value = "";
+    document.getElementById("inputLocation").value = "";
+
+    // Initial quotation
+    updateQuotation();
+
+    // Attach change handlers
+    document.getElementById("inputDuration").oninput = updateQuotation;
+    document.getElementById("inputGuests").oninput = updateQuotation;
+    document.getElementById("budgetSelect").onchange = updateQuotation;
+
+    modal.style.display = "block";
+
+    function updateQuotation() {
+        let dur = parseInt(document.getElementById("inputDuration").value) || baseDuration;
+        let guests = parseInt(document.getElementById("inputGuests").value) || 1;
+        let budget = document.getElementById("budgetSelect").value;
+
+        // Base price per minute
+        let unitPrice = basePrice / baseDuration;
+        let price = unitPrice * dur;
+
+        // Adjust for budget category multipliers
+        let multiplier = 1;
+        if (budget === "premium") multiplier = 1.5;
+        else if (budget === "royal") multiplier = 2;
+
+        price = price * multiplier;
+
+        // Maybe charge extra per guest beyond a base threshold
+        // For simplicity: price * (1 + (guests - 1) * 0.1)
+        if (guests > 1) {
+            price = price * (1 + (guests - 1) * 0.10);
+        }
+
+        document.getElementById("quotationAmount").innerText = price.toFixed(2);
+    }
+}
+
+function closeBookingPopup() {
+    const modal = document.getElementById("bookingModal");
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("bookingModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+</script>
+
