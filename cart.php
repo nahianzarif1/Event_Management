@@ -1,3 +1,55 @@
+<?php
+include 'dashboard.php';
+
+// Redirect if user is not logged in
+if (!isset($_SESSION["username"])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Redirect if cart is empty or not set
+$cartItems = isset($_SESSION["cart"]) && !empty($_SESSION["cart"]) ? $_SESSION["cart"] : [];
+
+// Database connection
+$host = 'localhost';
+$db = 'isd';
+$user = 'root';
+$pass = '';
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+
+$total = 0;
+$itemsData = [];
+
+if (!empty($cartItems)) {
+    $ids = implode(",", array_keys($cartItems));
+    $sql = "SELECT * FROM shop_item WHERE itemID IN ($ids)";
+    $result = $conn->query($sql);
+
+    while ($row = $result->fetch_assoc()) {
+        $itemID = $row['itemID'];
+        $quantity = $cartItems[$itemID];
+        $subtotal = $quantity * $row['price'];
+        $total += $subtotal;
+
+        $itemsData[] = [
+            'itemID' => $itemID,
+            'name' => $row['name'],
+            'price' => $row['price'],
+            'quantity' => $quantity,
+            'subtotal' => $subtotal
+        ];
+    }
+}
+?>
+
+<!-- Additional Cart Content -->
+<link rel="stylesheet" href="cart.css">
+<link rel="stylesheet" href="dashboard.css">
+
 <div class="cart-container">
     <h2>Your Shopping Cart</h2>
 
