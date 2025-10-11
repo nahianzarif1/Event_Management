@@ -53,12 +53,39 @@ $result = $conn->query($sql);
     <div class="service-list">
         <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
+
+                <?php
+                // Manually assign images based on service name
+                $imageSrc = 'resources/default.png'; // fallback
+
+                switch (strtolower(trim($row['name']))) {
+                    case 'dj':
+                        $imageSrc = 'resources/dj.png';
+                        break;
+                    case 'photography':
+                        $imageSrc = 'resources/photography.png';
+                        break;
+                    case 'decoration':
+                        $imageSrc = 'resources/decoration.png';
+                        break;
+                    case 'security':
+                        $imageSrc = 'resources/security.png';
+                        break;
+                    case 'catering':
+                        $imageSrc = 'resources/catering.png';
+                        break;
+                }
+                ?>
+
                 <div class="service-card"
                      data-service-id="<?php echo $row['serviceID']; ?>"
                      data-service-name="<?php echo htmlspecialchars($row['name']); ?>"
                      data-base-price="<?php echo $row['price']; ?>"
                      data-base-duration="<?php echo $row['duration']; ?>"
                      onclick="openBookingPopup(this)">
+
+                    <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['name']); ?>" class="service-image" />
+
                     <h3><?php echo htmlspecialchars($row['name']); ?></h3>
                     <p><?php echo htmlspecialchars($row['description']); ?></p>
                     <p>Category: <?php echo htmlspecialchars($row['category']); ?></p>
@@ -76,7 +103,7 @@ $result = $conn->query($sql);
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <a class="<?php echo $i == $page ? 'active' : ''; ?>"
                    href="services.php?page=<?php echo $i; ?>&search=<?php echo urlencode($search); ?>">
-                   <?php echo $i; ?>
+                    <?php echo $i; ?>
                 </a>
             <?php endfor; ?>
         <?php endif; ?>
@@ -131,8 +158,6 @@ $result = $conn->query($sql);
 </div>
 
 <script>
-// Popup logic including guest & budget in quotation
-
 function openBookingPopup(cardElem) {
     const modal = document.getElementById("bookingModal");
     const serviceID = cardElem.getAttribute("data-service-id");
@@ -149,10 +174,8 @@ function openBookingPopup(cardElem) {
     document.getElementById("inputDate").value = "";
     document.getElementById("inputLocation").value = "";
 
-    // Initial quotation
     updateQuotation();
 
-    // Attach change handlers
     document.getElementById("inputDuration").oninput = updateQuotation;
     document.getElementById("inputGuests").oninput = updateQuotation;
     document.getElementById("budgetSelect").onchange = updateQuotation;
@@ -164,19 +187,15 @@ function openBookingPopup(cardElem) {
         let guests = parseInt(document.getElementById("inputGuests").value) || 1;
         let budget = document.getElementById("budgetSelect").value;
 
-        // Base price per minute
         let unitPrice = basePrice / baseDuration;
         let price = unitPrice * dur;
 
-        // Adjust for budget category multipliers
         let multiplier = 1;
         if (budget === "premium") multiplier = 1.5;
         else if (budget === "royal") multiplier = 2;
 
         price = price * multiplier;
 
-        // Maybe charge extra per guest beyond a base threshold
-        // For simplicity: price * (1 + (guests - 1) * 0.1)
         if (guests > 1) {
             price = price * (1 + (guests - 1) * 0.10);
         }
@@ -186,8 +205,7 @@ function openBookingPopup(cardElem) {
 }
 
 function closeBookingPopup() {
-    const modal = document.getElementById("bookingModal");
-    modal.style.display = "none";
+    document.getElementById("bookingModal").style.display = "none";
 }
 
 window.onclick = function(event) {
@@ -197,3 +215,32 @@ window.onclick = function(event) {
     }
 };
 </script>
+
+<style>
+.service-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.service-card:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.service-image {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.no-results {
+    font-style: italic;
+    color: #777;
+}
+</style>

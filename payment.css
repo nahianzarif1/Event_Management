@@ -2,85 +2,137 @@
     max-width: 600px;
     margin: 40px auto;
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.95); /* softer white with subtle transparency */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(215, 90, 74, 0.15); /* warm soft shadow */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    color: #000; /* black text */
 }
 
 .payment-container h2 {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: center;
+    color: #d75a4a; /* warm accent stays */
+    font-weight: 700;
+    font-size: 28px;
 }
 
 .order-summary {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* airy row spacing */
+    margin-bottom: 24px;
+    color: #000; /* black text */
 }
 
 .order-summary th, .order-summary td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    padding: 14px 20px;
     text-align: center;
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(215, 90, 74, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #000; /* black text */
 }
 
 .order-summary th {
-    background-color: #f4f4f4;
+    background: transparent;
+    color: #b34133;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: none;
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+
+.order-summary tbody tr:hover td {
+    background-color: #d75a4a;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(215, 90, 74, 0.3);
 }
 
 .payment-form label {
     display: block;
-    margin: 12px 0 4px;
+    margin: 12px 0 6px;
+    color: #000; /* black text */
+    font-weight: 600;
 }
 
 .payment-form input[type="text"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
+    border: 1.5px solid #d75a4a;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #000; /* black text */
+    transition: border-color 0.3s ease;
+    background: #fff;
+}
+
+.payment-form input[type="text"]:focus {
+    border-color: #b34133;
+    outline: none;
+    background: #fff7f5;
 }
 
 .complete-payment-btn {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background-color: #28a745;
+    margin-top: 24px;
+    padding: 14px 24px;
+    background-color: #d75a4a;
     border: none;
     color: white;
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 18px;
+    border-radius: 16px;
     cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 6px 12px rgba(215, 90, 74, 0.3);
 }
 
 .complete-payment-btn:hover {
-    background-color: #218838;
+    background-color: #b34133;
+    box-shadow: 0 8px 20px rgba(215, 90, 74, 0.45);
 }
 
 .error-messages, .success-message {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    padding: 14px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #000; /* black text */
 }
 
 .error-messages {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: #fcebea;
+    box-shadow: 0 4px 10px rgba(211, 74, 49, 0.2);
 }
 
 .success-message {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: #e6f4ea;
+    box-shadow: 0 4px 10px rgba(56, 143, 77, 0.2);
 }
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 12px 24px;
+    background-color: #b34133;
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 16px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 12px rgba(179, 65, 51, 0.4);
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #8a2c23;
+    box-shadow: 0 7px 18px rgba(138, 44, 35, 0.6);
 }

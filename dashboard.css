@@ -1,91 +1,95 @@
-/* General Reset */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffecd2, #fcb69f); /* warm, bright gradient */
-  color: #333; /* dark text for light mode */
+  background: url('resources/dash_background.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
 }
 
-/* Navigation Bar */
 .navbar {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  padding: 0 20px;
-  overflow: hidden;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 12px 24px;
+  margin: 20px auto;
+  max-width: 1000px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-/* Nav links */
 .navbar a {
-  color: #d75a4a; /* warm red/orange */
+  color: #ffffff;
   text-decoration: none;
-  padding: 16px 20px;
   font-weight: 600;
-  border-radius: 6px;
+  font-size: 1rem;
+  margin: 0 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .navbar a:hover {
-  background: rgba(215, 90, 74, 0.15);
-  color: #b34133;
+  background: rgba(255, 255, 255, 0.2);
+  color: #dcdcdc;
 }
 
-/* Username Section */
 .username {
-  color: #6b3e2a; /* warm brown */
-  padding: 16px 20px;
+  color: #ffffff;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
 }
 
 .logout-link {
-  color: #d75a4a;
+  color: #4dd0e1;
   text-decoration: underline;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .logout-link:hover {
-  color: #b34133;
+  color: #26a69a;
 }
 
-/* Page Content */
 .content {
-  padding: 30px;
-  max-width: 900px;
+  padding: 40px 24px;
+  max-width: 960px;
   margin: 40px auto;
+  text-align: center;
 }
 
 .welcome {
   font-size: 28px;
   font-weight: bold;
+  color: #ffffff;
   margin-bottom: 20px;
-  color: #6b3e2a;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    padding: 10px 20px;
-    border-radius: 12px;
+    align-items: stretch;
+    padding: 16px;
+    text-align: center;
   }
 
   .navbar a,
   .username {
     width: 100%;
-    padding: 12px 0;
-    text-align: center;
-    float: none;
+    margin: 8px 0;
   }
 
   .username {

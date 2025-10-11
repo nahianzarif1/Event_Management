@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($result->num_rows === 1) {
         $_SESSION["username"] = $username;
-        header("Location: dashboard.php");
+        header("Location: home.php");
         exit();
     } else {
         $error = "Invalid username or password.";
