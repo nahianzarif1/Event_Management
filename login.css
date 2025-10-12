@@ -1,0 +1,127 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #000; 
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('resources/login_background.png') no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+}
+
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  color: #fff;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 15px 0;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.2);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.35);
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #4b0fb7, #1a59d1);
+  transform: translateY(-2px);
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.success {
+  color: #51cf66;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.back-to-login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.back-to-login a {
+  font-size: 14px;
+  color: #4dd0e1;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.back-to-login a:hover {
+  color: #26a69a;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 20px 16px;
+  }
+
+  input,
+  button {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}

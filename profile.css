@@ -1,0 +1,84 @@
+.profile-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Minimalist Modern Tables */
+.profile-container table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* spacing between rows */
+  color: #4a2c1a;
+  border-radius: 12px;
+  overflow: visible;
+  background: transparent;
+}
+
+.profile-container th,
+.profile-container td {
+  padding: 14px 20px;
+  text-align: center;       /* Center horizontally */
+  vertical-align: middle;   /* Center vertically */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  /* stronger shadow */
+  box-shadow: 0 6px 15px rgba(215, 90, 74, 0.3);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.profile-container th {
+  font-weight: 600;
+  color: #d75a4a;
+  background: transparent;
+  box-shadow: none;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.profile-container tbody tr {
+  background: transparent;
+  box-shadow: none;
+}
+
+.profile-container tbody tr:hover td {
+  background-color: #d75a4a;
+  color: #fff;
+  /* stronger shadow on hover */
+  box-shadow: 0 8px 25px rgba(215, 90, 74, 0.5);
+}
+
+.profile-container tr:nth-child(even) td,
+.profile-container tr:nth-child(odd) td {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Remove bottom border of last row */
+.profile-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive font size and alignment */
+@media screen and (max-width: 768px) {
+  .profile-container {
+    padding: 0 12px;
+  }
+
+  .profile-container th,
+  .profile-container td {
+    font-size: 14px;
+    padding: 12px 15px;
+    white-space: normal;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
