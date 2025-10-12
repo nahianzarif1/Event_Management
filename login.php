@@ -1,22 +1,16 @@
 <?php
 session_start();
-$host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "isd";
+require_once 'DatabaseFactory.php'; // Include the factory
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    // Use factory to create DB connection
+    $conn = DatabaseFactory::createConnection();
 
     $stmt = $conn->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $username, $password); 
+    $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $result = $stmt->get_result();
 
