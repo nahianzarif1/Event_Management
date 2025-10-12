@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once 'DatabaseFactory.php'; // Include the factory
+require_once 'DatabaseFactory.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Use factory to create DB connection
+    
     $conn = DatabaseFactory::createConnection();
 
     $stmt = $conn->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
