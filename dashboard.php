@@ -28,6 +28,7 @@ $username = $_SESSION["username"];
             Welcome, <?php echo htmlspecialchars($username); ?> |
             <a href="logout.php" class="logout-link">Logout</a>
         </div>
+        <a href="admin.php">Admin</a>
     </div>
 
 </body>
